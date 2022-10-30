@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BinanceApi1
 {
-    class marketCondition
+ public   class marketCondition
     {
         public decimal maxOld;
         public decimal minOld;

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BinanceApi1.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220611053622_meg1")]
-    partial class meg1
+    [Migration("20220919161515_mig3")]
+    partial class mig3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,6 +46,52 @@ namespace BinanceApi1.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("marketPrints");
+                });
+
+            modelBuilder.Entity("BinanceApi1.TradeOrder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("BinanceOrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ClientOrderId")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<bool>("IsOpen")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("pair")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<decimal>("price")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<decimal>("quantity")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<int>("tradeType")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tradeOrders");
+                });
+
+            modelBuilder.Entity("BinanceApi1.TradingPair", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("name")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tradingPairs");
                 });
 #pragma warning restore 612, 618
         }

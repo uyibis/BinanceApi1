@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BinanceApi1
 {
-    class Pair
+  public  class Pair
     {
       public   String name;
       private Decimal _price;
@@ -23,20 +23,20 @@ namespace BinanceApi1
                 if (this.histories.Count>1)
                 uti.analyse(this);
                 
-            } }
+            } 
+        }
        public DateTime time;
        private Changes _change;
        public Changes change { get { return _change; }set { _change = value;changes.Add(value); } }
        public readonly List<Changes> changes = new List<Changes>();
        public readonly PairList<History> histories=new PairList<History>();
        public marketCondition markcond = new marketCondition();
-        public MarketPrint marketPrint = new MarketPrint();
-
+       public MarketPrint marketPrint = new MarketPrint();
     }
+
     public class History {
         public DateTime time;
         public Decimal price;
     }
     
-
 }

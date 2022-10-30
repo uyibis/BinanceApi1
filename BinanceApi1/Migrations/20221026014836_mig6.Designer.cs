@@ -3,14 +3,16 @@ using System;
 using BinanceApi1;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BinanceApi1.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20221026014836_mig6")]
+    partial class mig6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,9 +104,6 @@ namespace BinanceApi1.Migrations
 
                     b.Property<bool>("IsOpen")
                         .HasColumnType("tinyint(1)");
-
-                    b.Property<DateTime>("OrderTime")
-                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("pair")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BinanceApi1
 {
-    class MarketPrint
+ public   class MarketPrint
     {
         public int Id { set; get; }
         public decimal max { set; get; }

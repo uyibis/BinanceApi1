@@ -74,6 +74,7 @@ namespace BinanceApi1
                 changes.pairName = pair.name;
                 changes.margin = pair.markcond.maxNew - pair.markcond.maxOld;
                 changes.time = DateTime.Now;
+                changes.price = pair.price;
                 pair.change = changes;
                 PairChangeEventArgs pairChangeEventArgs = new PairChangeEventArgs();
                 pairChangeEventArgs.changes = changes;
@@ -98,7 +99,8 @@ namespace BinanceApi1
         }
         public void onLimitChange(object sender, PairChangeEventArgs e)
         {
-            Console.WriteLine($"Pair: {e.changes.pairName} ----- Limit change {e.changes.change}  -----   margin {e.changes.margin}");
+            string read;
+            consoleInterface($"Pair: {e.changes.pairName} ----- Limit change {e.changes.change}  -----   Margin {e.changes.margin} ---- Price {e.changes.price}", 0,out read);
         }
         public MinMax minMaxTime48(int duration)
         {
@@ -106,13 +108,51 @@ namespace BinanceApi1
             DataContext dataContext = new DataContext();
             minMax.min = (from dt in dataContext.marketPrints
                           where dt.time > DateTime.Now.AddHours(duration)
-                          select dt.min).Min(); ;
+                          select dt.min).Min();
 
             minMax.max = (from dt in dataContext.marketPrints
                           where dt.time > DateTime.Now.AddHours(duration)
-                          select dt.max).Max(); ;
+                          select dt.max).Max();
             return minMax;
         }
 
+        public void consoleInterface(String statement, int cas,out string read)
+        {
+           
+            //lock (this)
+            
+                switch (cas)
+                {
+                    case 0:
+                    if(!Program.ordering)
+                        Console.WriteLine(statement);
+                        read = "";
+                        break;
+                case 1:
+                    if (!Program.buying)
+                        Console.WriteLine(statement);
+                    read = "";
+                    break;
+                default:
+                        read = Console.ReadLine();
+                        break;
+                }
+            
+        }
+        public void consoleInterface(String statement)
+        {
+                    if (!Program.buying)
+                        Console.WriteLine(statement);
+        }
+
+        public decimal roundToSignificantDigits(decimal d, int digits)
+        {
+            if (d == 0.0M || Double.IsNaN((double)d) || Double.IsInfinity((double)d))
+            {
+                return d;
+            }
+            decimal scale = (decimal)Math.Pow(10, Math.Floor(Math.Log10((double)Math.Abs(d))) + 1);
+            return (scale * Math.Round((decimal)d / scale, digits, MidpointRounding.AwayFromZero));
+        }
     }
 }
